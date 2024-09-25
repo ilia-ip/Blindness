@@ -1,24 +1,33 @@
 package net.ilia_ip.blindness;
 
+import net.ilia_ip.blindness.anger_events.*;
+import net.ilia_ip.blindness.*;
 import net.fabricmc.api.ModInitializer;
-
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import org.slf4j.Logger;
+import net.fabricmc.fabric.api.event.*;
+import net.fabricmc.fabric.api.event.player.*;
 import org.slf4j.LoggerFactory;
+import net.minecraft.entity.damage.*;
+import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.util.*;
+import net.minecraft.block.*;
+import net.minecraft.server.*;
+import net.minecraft.world.*;
 
 public class Blindness implements ModInitializer {
 	public static final String MOD_ID = "blindness";
-
-	// This logger is used to write text to the console and the log file.
-	// It is considered best practice to use your mod id as the logger's name.
-	// That way, it's clear which mod wrote info, warnings, and errors.
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
 	@Override
 	public void onInitialize() {
-		// This code runs as soon as Minecraft is in a mod-load-ready state.
-		// However, some things (like resources) may still be uninitialized.
-		// Proceed with mild caution.
-
-		LOGGER.info("Hello Fabric world!");
+	    Events.initClasses();
+      ServerTickEvents.END_SERVER_TICK.register((server) -> {
+      StateSaverAndLoader serverState = StateSaverAndLoader.getServerState(server);
+      LOGGER.info("AngerLevel {}", serverState.roundedAngerLevel);
+      Events.low_anger(server.getWorld(World.OVERWORLD), server);
+      StateSaverAndLoader.roundedAngerLevel += 0.000041;
+    });
+    LOGGER.info("Hello Fabric world!");
 	}
 }
