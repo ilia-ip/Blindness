@@ -1,4 +1,4 @@
-package net.ilia_ip.mods.blindness;
+package net.ilia_ip.blindness;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;

@@ -1,4 +1,4 @@
-package net.ilia_ip.mods.blindness.mixin;
+package net.ilia_ip.blindness.mixin;
 
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
